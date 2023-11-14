@@ -27,6 +27,28 @@ class User(DefaultBase):
 
     lists = association_proxy('tasks', 'lists')
 
+    @validates('password')
+    def validate_password (self, key, password):
+        if (4 > len(password) > 35):
+            raise ValueError('Password must be between 5 and 34 characters long')
+        
+    @validates('username')
+    def validate_username (self, key, username):
+        if (4 > len(username) > 16):
+            raise ValueError('Username must be between 5 and 15 characters long')
+        
+    @hybrid_property
+    def password(self):
+        return self._password
+    
+    @password.setter
+    def password(self, password):
+        password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+        self._password = password_hash
+
+    def auth(self, password):
+        return bcrypt.check_password_hash(self.password, password)
+
 class Task(DefaultBase):
     __tablename__ = 'tasks'
 
