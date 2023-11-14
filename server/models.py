@@ -31,11 +31,13 @@ class User(DefaultBase):
     def validate_password (self, key, password):
         if (4 > len(password) > 35):
             raise ValueError('Password must be between 5 and 34 characters long')
+        return password
         
     @validates('username')
     def validate_username (self, key, username):
         if (4 > len(username) > 16):
             raise ValueError('Username must be between 5 and 15 characters long')
+        return username
         
     @hybrid_property
     def password(self):
