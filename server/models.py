@@ -20,12 +20,14 @@ class DefaultBase(db.Model, SerializerMixin):
 class User(DefaultBase):
     __tablename__ = 'users'
 
+    serialize_rules = ('-tasks.users', '-_password')
+
     username = db.Column(db.String, unique=True, nullable=False)
     _password = db.Column(db.String, nullable=True)
 
     tasks = db.relationship('Task', backref='user', cascade='all, delete-orphan')
 
-    lists = association_proxy('tasks', 'lists')
+    lists = association_proxy('tasks', 'list')
 
     @validates('password')
     def validate_password (self, key, password):
@@ -68,5 +70,5 @@ class List(DefaultBase):
 
     tasks = db.relationship('Task', backref='list', cascade='all, delete-orphan')
 
-    users = association_proxy('tasks', 'users')
+    users = association_proxy('tasks', 'user')
     
