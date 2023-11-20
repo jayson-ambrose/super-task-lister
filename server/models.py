@@ -56,6 +56,8 @@ class User(DefaultBase):
 class Task(DefaultBase):
     __tablename__ = 'tasks'
 
+    serialize_rules = ('-user.tasks', '-user.lists', '-user._password', '-list.tasks', '-list.users')
+
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.Text)
     completed = db.Column(db.Boolean)

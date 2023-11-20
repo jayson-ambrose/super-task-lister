@@ -52,11 +52,31 @@ class Users(Resource):
             user_list.append(user.to_dict())
 
         return make_response(user_list, 200)
+    
+class Tasks(Resource):
+
+    def get(self):
+        task_list = []
+        for task in Task.query.all():
+            task_list.append(task.to_dict())
+
+        return make_response(task_list, 200)
+        
+class Lists(Resource):
+    def get(self):
+        list_list = []
+        for list in List.query.all():
+            list_list.append(list.to_dict())
+
+        return make_response(list_list, 200)
+
         
 
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(Users, '/users')
+api.add_resource(Tasks, '/tasks')
+api.add_resource(Lists, '/lists')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
