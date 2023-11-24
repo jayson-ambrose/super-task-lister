@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './styles/App.css'
 import { Button } from 'semantic-ui-react'
 import AllTasks from './components/AllTasks'
+import Credentials from './components/Credentials'
 
 function App() {
 
@@ -11,8 +12,7 @@ function App() {
     <div className='mainContainer'>
       <h1>Welcome to Super Task Lister</h1>
       <div>
-        <Button primary>Login</Button>
-        <Button primary>Create Profile</Button>
+        <Credentials/>
       </div>
       {loggedIn ? <h1>Hello World</h1> : <AllTasks/>}
       
