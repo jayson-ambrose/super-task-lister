@@ -17,7 +17,7 @@ export default function AllTasks() {
     },[])
 
     function handleActiveIndex (num) {
-        setActiveIndex(num)
+        activeIndex == num ? setActiveIndex(null) : setActiveIndex(num)
     }
 
     const displayLists = taskList.map((list) => {

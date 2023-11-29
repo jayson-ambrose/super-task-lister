@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './styles/App.css'
-import { Button } from 'semantic-ui-react'
 import AllTasks from './components/AllTasks'
 import Credentials from './components/Credentials'
+import { useRecoilValue } from 'recoil'
+import { loggedInAtom, activeAccountAtom } from './components/lib/atoms'
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false)
+  const loggedIn = useRecoilValue(loggedInAtom)
+  const activeAccount = useRecoilValue(activeAccountAtom)
 
   return (
     <div className='mainContainer'>
@@ -14,8 +16,7 @@ function App() {
       <div>
         <Credentials/>
       </div>
-      {loggedIn ? <h1>Hello World</h1> : <AllTasks/>}
-      
+      {loggedIn ? <h1>Hello World</h1> : <AllTasks/>}      
     </div>
   )
 }
