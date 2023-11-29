@@ -12,43 +12,33 @@ from sqlalchemy.exc import IntegrityError
 from config import app, db, api
 from models import User, Task, List, DefaultBase
 
-app.secret_key = "dkdfkSKF3JaslFJl6ksddfgk16afjD3gdKDsJ2FLa3ASssdaDKFJ"
+app.secret_key = 'dkdfkSKF3JaslFJl6ksd8dfgk1fjD3gdKDJ'
 
 # Views
 
 class Login(Resource):    
 
     def post(self):
-
-        req_data = request.get_json()
-        print(req_data)
+        req_data = request.get_json()        
         user = User.query.filter(User.username == req_data['username']).first()
 
         try:
             if user.auth(req_data['password']) == False:
-                print ('Incorrect password.')
                 return make_response({"error":"wrong password enterred"}, 401)
-            
-            print('password authorized')
-            print(user.id)
 
             session['user_id'] = user.id
 
-            print(session['user_id'])
-
+            print(session)
             return make_response(user.to_dict(), 200)
 
         except:
             return make_response({'error': 'user not found or incorrect password'}, 401)
         
 class Logout(Resource):
-
-    def get(self):
-        
-        session.clear()
-        return make_response({}, 204)
     
     def delete(self):
+
+        print(session)
         
         session['user_id'] = None
         return make_response({}, 204)
@@ -56,7 +46,9 @@ class Logout(Resource):
 class CheckSession(Resource):
 
     def get(self):
-        print(session['user_id'])
+
+        print(session)
+
         user = User.query.filter(User.id == session.get('user_id')).first()
 
         print(user)
@@ -89,9 +81,7 @@ class Lists(Resource):
         for list in List.query.all():
             list_list.append(list.to_dict())
 
-        return make_response(list_list, 200)
-
-        
+        return make_response(list_list, 200)        
 
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
