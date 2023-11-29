@@ -1,21 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles/App.css'
 import AllTasks from './components/AllTasks'
 import Credentials from './components/Credentials'
-import { useRecoilValue } from 'recoil'
+import Logout from './components/Logout'
+import { useRecoilState } from 'recoil'
 import { loggedInAtom, activeAccountAtom } from './components/lib/atoms'
 
 function App() {
 
-  const loggedIn = useRecoilValue(loggedInAtom)
-  const activeAccount = useRecoilValue(activeAccountAtom)
+  const [loggedIn, setLoggedIn] = useRecoilState(loggedInAtom)
+  const [activeAccount, setActiveAccount] = useRecoilState(activeAccountAtom)
+
+  console.log(activeAccount)
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:5555/checksession')
+    .then(resp => {
+      if(resp.ok) {
+        resp.json()
+        .then(data => {
+          setLoggedIn(true)
+          setActiveAccount(data)
+        })
+      }
+    })
+  }, [])
 
   return (
     <div className='mainContainer'>
-      <h1>Welcome to Super Task Lister</h1>
-      <div>
-        <Credentials/>
-      </div>
+      <h1>Welcome to Super Task Lister</h1>      
+      {loggedIn ? <Logout/> : <Credentials/>}
       {loggedIn ? <h1>Hello World</h1> : <AllTasks/>}      
     </div>
   )

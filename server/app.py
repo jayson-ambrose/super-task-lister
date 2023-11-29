@@ -12,15 +12,16 @@ from sqlalchemy.exc import IntegrityError
 from config import app, db, api
 from models import User, Task, List, DefaultBase
 
-app.secret_key = "aggaba/434G.mgfYTad5sfh//,GF,vffa"
+app.secret_key = "dkdfkSKF3JaslFJl6ksddfgk16afjD3gdKDsJ2FLa3ASssdaDKFJ"
 
-# Views go here!
+# Views
 
 class Login(Resource):    
 
     def post(self):
 
         req_data = request.get_json()
+        print(req_data)
         user = User.query.filter(User.username == req_data['username']).first()
 
         try:
@@ -28,7 +29,14 @@ class Login(Resource):
                 print ('Incorrect password.')
                 return make_response({"error":"wrong password enterred"}, 401)
             
+            print('password authorized')
+            print(user.id)
+
             session['user_id'] = user.id
+
+            print(session['user_id'])
+
+            return make_response(user.to_dict(), 200)
 
         except:
             return make_response({'error': 'user not found or incorrect password'}, 401)
@@ -36,13 +44,26 @@ class Login(Resource):
 class Logout(Resource):
 
     def get(self):
-        session ['user_id'] = None
+        
+        session.clear()
         return make_response({}, 204)
     
     def delete(self):
-        print(session['user_id'])
-        session ['user_id'] = None
+        
+        session['user_id'] = None
         return make_response({}, 204)
+    
+class CheckSession(Resource):
+
+    def get(self):
+        print(session['user_id'])
+        user = User.query.filter(User.id == session.get('user_id')).first()
+
+        print(user)
+        if user:
+            return make_response(user.to_dict(), 200)
+        else:
+            return make_response({'error': 'session not found'}, 401)
 
 class Users(Resource):
 
@@ -74,6 +95,7 @@ class Lists(Resource):
 
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
+api.add_resource(CheckSession, '/checksession')
 api.add_resource(Users, '/users')
 api.add_resource(Tasks, '/tasks')
 api.add_resource(Lists, '/lists')

@@ -14,11 +14,31 @@ export default function Credentials() {
 
     function handleLogin () {
 
+        const loginCredentials = {username: username, password: password}
+        
+        fetch('http://127.0.0.1:5555/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(loginCredentials)
+        })
+        .then(resp => {
+            if(resp.ok) {
+                resp.json()
+                .then(data => {
+                    setUsername('')
+                    setPassword('')
+                    setActiveAccount(data)
+                    setLoggedIn(true)
+                })
+            }
+        })
     }
 
     return (
         <div className="mainContainer">
-            <Form onSubmit={() => console.log(username + ', ' + password)}>
+            <Form onSubmit={() => handleLogin()}>
                 <Form.Field onChange= {(e) => setUsername(e.target.value)}>
                     <label>Username</label>
                     <Input placeholder ='username' />
