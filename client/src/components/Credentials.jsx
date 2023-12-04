@@ -16,7 +16,7 @@ export default function Credentials() {
 
         const loginCredentials = {username: username, password: password}
         
-        fetch('http://127.0.0.1:5555/login', {
+        fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'

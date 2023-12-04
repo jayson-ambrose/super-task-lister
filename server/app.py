@@ -19,6 +19,9 @@ app.secret_key = 'dkdfkSKF3JaslFJl6ksd8dfgk1fjD3gdKDJ'
 class Login(Resource):    
 
     def post(self):
+
+        # copilot why does the session in this function fail to persist the user_id to other views?
+
         req_data = request.get_json()        
         user = User.query.filter(User.username == req_data['username']).first()
 
@@ -27,6 +30,8 @@ class Login(Resource):
                 return make_response({"error":"wrong password enterred"}, 401)
 
             session['user_id'] = user.id
+
+            print(f'user:{user.id}')
 
             print(session)
             return make_response(user.to_dict(), 200)
@@ -81,7 +86,8 @@ class Lists(Resource):
         for list in List.query.all():
             list_list.append(list.to_dict())
 
-        return make_response(list_list, 200)        
+        return make_response(list_list, 200)    
+        
 
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')

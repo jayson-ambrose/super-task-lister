@@ -14,7 +14,7 @@ function App() {
   console.log(activeAccount)
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5555/checksession')
+    fetch('/api/checksession')
     .then(resp => {
       if(resp.ok) {
         resp.json()
@@ -30,7 +30,7 @@ function App() {
     <div className='mainContainer'>
       <h1>Welcome to Super Task Lister</h1>      
       {loggedIn ? <Logout/> : <Credentials/>}
-      {loggedIn ? <h1>Hello World</h1> : <AllTasks/>}      
+      {loggedIn ? <h1>Hello {activeAccount.username}</h1> : <AllTasks/>}      
     </div>
   )
 }

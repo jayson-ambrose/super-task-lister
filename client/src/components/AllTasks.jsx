@@ -8,7 +8,7 @@ export default function AllTasks() {
     const [activeIndex, setActiveIndex] = useState(null)
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5555/lists')
+        fetch('/api/lists')
         .then(resp => resp.json())
         .then(data => {
             console.log(data)

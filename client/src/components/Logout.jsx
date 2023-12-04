@@ -9,7 +9,7 @@ export default function Logout () {
     const setActiveAccount = useSetRecoilState(activeAccountAtom)
 
     const handleLogout = () => {
-        fetch('http://127.0.0.1:5555/logout', {
+        fetch('/api/logout', {
             method: 'DELETE'
         })
         .then(resp => {
