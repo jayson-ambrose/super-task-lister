@@ -8,6 +8,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
+from flask_session import Session
 # Local imports
 
 # Instantiate app, set attributes
@@ -34,3 +35,7 @@ CORS(app)
 
 # Instantiate BCrypt
 bcrypt = Bcrypt(app)
+
+# Instantiate Session?
+# flasksession = Session(app)
+# flasksession.init_app(app)
