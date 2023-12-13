@@ -33,7 +33,7 @@ export default function AllTasks() {
     return (
         <div>
             <h1>Today's Tasks</h1>
-            <Accordion>
+            <Accordion inverted>
                 {displayLists}
             </Accordion>
         </div>

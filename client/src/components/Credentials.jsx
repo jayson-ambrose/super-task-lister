@@ -37,8 +37,8 @@ export default function Credentials() {
     }
 
     return (
-        <div className="mainContainer">
-            <Form onSubmit={() => handleLogin()}>
+        <div>
+            <Form inverted onSubmit={() => handleLogin()}>
                 <Form.Field onChange= {(e) => setUsername(e.target.value)}>
                     <label>Username</label>
                     <Input placeholder ='username' />

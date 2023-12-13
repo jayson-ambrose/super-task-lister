@@ -20,7 +20,7 @@ class DefaultBase(db.Model, SerializerMixin):
 class User(DefaultBase):
     __tablename__ = 'users'
 
-    serialize_rules = ('lists', '-lists.users', '-lists.tasks.user', '-tasks')
+    serialize_rules = ('-_password', 'lists', '-lists.users', '-lists.tasks.user', '-tasks.list.user', '-tasks.user._password')
 
     username = db.Column(db.String, unique=True, nullable=False)
     _password = db.Column(db.String, nullable=True)

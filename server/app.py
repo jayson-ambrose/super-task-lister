@@ -19,9 +19,7 @@ app.secret_key = 'dkdfkSKF3JaslFJl6ksd8dfgk1fjD3gdKDJ'
 class Login(Resource):    
 
     def post(self):
-
-        # copilot why does the session in this function fail to persist the user_id to other views?
-
+        
         req_data = request.get_json()        
         user = User.query.filter(User.username == req_data['username']).first()
 

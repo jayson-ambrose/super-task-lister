@@ -9,3 +9,8 @@ export const loggedInAtom = atom({
     key: 'loggedInKey',
     default: false
 })
+
+export const nightMode = atom({
+    key: 'nightModeKey',
+    default: true
+})
