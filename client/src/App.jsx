@@ -3,9 +3,10 @@ import Credentials from './components/Credentials'
 import Logout from './components/Logout'
 import { useRecoilState } from 'recoil'
 import { loggedInAtom, activeAccountAtom } from './components/lib/atoms'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Greeting from './components/Greeting'
 import Nav from './components/Nav'
+import MyTasks from './components/MyTasks'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
       {loggedIn ? <Nav/> : null}
       <Routes>
         <Route path='/' element={<Greeting/>}/>      
+        <Route path='/mytasks' element={<MyTasks/>}/>      
       </Routes>   
     </div>
   )
