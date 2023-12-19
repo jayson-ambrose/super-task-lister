@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil'
 import { loggedInAtom, activeAccountAtom } from './components/lib/atoms'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Greeting from './components/Greeting'
+import Nav from './components/Nav'
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
     <div className='headerContainer'>
       <h1>Welcome to Super Task Lister</h1>      
       {loggedIn ? <Logout/> : <Credentials/>}
+      {loggedIn ? <Nav/> : null}
       <Routes>
         <Route path='/' element={<Greeting/>}/>      
       </Routes>   

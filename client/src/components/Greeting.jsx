@@ -12,7 +12,7 @@ export default function Greeting () {
 
     return(
         <div className='routeContent'>
-            <p> {loggedIn ? `Welcome ${activeAccount.username}, you have ${activeAccount.lists.length} lists with a total of ${activeAccount.tasks.length}` : loggedOutMessage} </p>
+            <p> {loggedIn ? `Welcome ${activeAccount.username}, you have ${activeAccount.lists.length} lists with a total of ${activeAccount.tasks.length} tasks assigned to you.` : loggedOutMessage} </p>
         </div>
     )
 }
